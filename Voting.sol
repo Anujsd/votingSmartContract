@@ -6,10 +6,10 @@ contract voting{
     address public pollCreator;
     mapping(bytes32=>uint256) private candidateToVotes;
     bytes32[] public candidateList;
-    mapping(address=>bool) public voterToVotedOrNot;
+    mapping(address=>bool) private voterToVotedOrNot;
 
     // This constructor sets pollCreator and list of candidates
-    constructor(bytes32[] memory candidateNames)public{
+    constructor(bytes32[] memory candidateNames) public{
         pollCreator=msg.sender;
         candidateList = candidateNames;
     }
@@ -44,6 +44,8 @@ contract voting{
         return candidateToVotes[candidate];
     }
 
-}
+    function voterToVotedOrNotList(address voter) OnlyPollCreator view public returns (bool) {
+        return voterToVotedOrNot[voter];
+    }
 
-//["0x72616d0000000000000000000000000000000000000000000000000000000000","0x7368616d00000000000000000000000000000000000000000000000000000000","0x72616a7500000000000000000000000000000000000000000000000000000000"]
+}
